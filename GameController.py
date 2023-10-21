@@ -1,13 +1,16 @@
 import pygame as pg
 import sys
 from settings import *
+from models.Game import Game
 
+class GameController:
+    def __init__(self, game:Game):
+        self.game = game
+        pass
 
-class Game:
-    def __init__(self):
-        pg.init()
-        self.screen = pg.display.set_mode(RES)
-        self.clock = pg.time.Clock()
+        # pg.init()
+        # self.screen = pg.display.set_mode(RES)
+        # self.clock = pg.time.Clock()
 
     def update(self):
         pg.display.flip()
@@ -22,7 +25,8 @@ class Game:
                 sys.exit()
 
     def run(self):
-        while True:
-            self.check_events()
-            self.update()
-            self.clock.tick(FPS)
+        self.game.display_board()
+        # while True:
+        #     self.check_events()
+        #     self.update()
+        #     self.clock.tick(FPS)

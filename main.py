@@ -1,6 +1,9 @@
-from Game import Game
-
+from GameController import GameController
+from models.Game import Game
+from models.Board import Board
 
 if __name__ == "__main__":
-    game = Game()
-    game.run()
+    board = Board()
+    game = Game(board)
+    gameController = GameController(game)
+    gameController.run()
