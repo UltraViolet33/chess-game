@@ -26,8 +26,3 @@ class Game:
             self.check_events()
             self.update()
             self.clock.tick(FPS)
-
-
-if __name__ == "__main__":
-    game = Game()
-    game.run()
