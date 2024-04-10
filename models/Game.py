@@ -9,7 +9,8 @@ class Game:
 
     def display_board(self)-> None:
         for i in range(len(self.board.board_array)):
-            if i % 8 == 0:
-                print("\n")
-            cell = self.board.board_array[i]
-            cell.print_location()
+            for j in range(len(self.board.board_array)):
+                if j % 8 == 0:
+                    print("\n")
+                cell = self.board.board_array[i][j]
+                cell.print_location()

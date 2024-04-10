@@ -1,12 +1,8 @@
-
-
 class Location:
     def __init__(self, x: int, y: int) -> None:
         self.x = x
         self.y = y
 
-
-   
 
 
 class Cell:
@@ -20,7 +16,6 @@ class Cell:
 
     def print_location(self):
         if self.has_piece():
-            print("P ", end="")
+            print(f"{self.piece}", end="")
         else:
             print("- ", end="")
-        # print("x: ", self.location.x, " y: ", self.location.y, " \n")

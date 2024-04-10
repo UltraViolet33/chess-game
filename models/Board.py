@@ -1,4 +1,5 @@
 from .Cell import Cell
+from settings import INITIAL_BOARD
 
 
 class Board:
@@ -6,13 +7,13 @@ class Board:
         self._board_array = self.init_board() 
 
 
-
-
     def init_board(self):
         board = []
         for i in range(8):
+            row = []
             for j in range(8):
-                board.append(Cell(i, j))
+                row.append(Cell(i, j, INITIAL_BOARD[i][j]))
+            board.append(row)
         return board
 
     @property
