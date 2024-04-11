@@ -23,4 +23,11 @@ class Board:
     @property
     def board_array(self)-> list:
         return self._board_array
+
+
+    def reset_cells(self, screen, font):
+        for i in range(8):
+            for j in range(8):
+                cell = self.board_array[i][j]
+                cell.reset(screen, font)
     

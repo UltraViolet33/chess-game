@@ -32,3 +32,14 @@ class Cell:
     def focus(self, screen)->_void:
         pg.draw.rect(screen, (255, 255, 255), self.inner_rect)
         pg.draw.rect(screen, (0, 0, 0), self.rect)
+
+    def draw(self, screen, font)->_void:
+        pg.draw.rect(screen, (255, 0, 0), self.inner_rect)
+        pg.draw.rect(screen, (0, 0, 0), self.rect)
+        text_surface = font.render(self.piece, False, (255, 0, 0))
+        screen.blit(text_surface, (self.rect.x ,self.rect.y))
+
+    def reset(self, screen, font)->_void:
+        pg.draw.rect(screen, (0, 0, 0), self.inner_rect)
+        pg.draw.rect(screen, (0, 0, 0), self.rect)
+        self.draw(screen, font)
