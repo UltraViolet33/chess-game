@@ -29,17 +29,22 @@ class Cell:
         else:
             print("- ", end="")
 
-    def focus(self, screen)->_void:
+    def focus(self, screen,font)->_void:
         pg.draw.rect(screen, (255, 255, 255), self.inner_rect)
         pg.draw.rect(screen, (0, 0, 0), self.rect)
+        self.draw_piece(screen, font)
+        
 
     def draw(self, screen, font)->_void:
         pg.draw.rect(screen, (255, 0, 0), self.inner_rect)
         pg.draw.rect(screen, (0, 0, 0), self.rect)
-        text_surface = font.render(self.piece, False, (255, 0, 0))
-        screen.blit(text_surface, (self.rect.x ,self.rect.y))
+        self.draw_piece(screen, font)
 
     def reset(self, screen, font)->_void:
         pg.draw.rect(screen, (0, 0, 0), self.inner_rect)
         pg.draw.rect(screen, (0, 0, 0), self.rect)
         self.draw(screen, font)
+    
+    def draw_piece(self, screen, font)->_void:
+        text_surface = font.render(self.piece, False, (255, 0, 0))
+        screen.blit(text_surface, (self.rect.x ,self.rect.y))

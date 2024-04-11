@@ -38,7 +38,7 @@ class GameController:
                             if cell.rect.collidepoint(event.pos):
                                 print('clicked  ' + cell.piece)
                                 self.game.board.reset_cells(self.screen, self.font)
-                                cell.focus(self.screen)
+                                cell.focus(self.screen, self.font)
 
 
     def run(self):
