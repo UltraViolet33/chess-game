@@ -1,3 +1,8 @@
+from inspect import _void
+import pygame as pg
+from settings import *
+
+
 class Location:
     def __init__(self, x: int, y: int) -> None:
         self.x = x
@@ -6,9 +11,13 @@ class Location:
 
 
 class Cell:
-    def __init__(self, x: int, y:int, piece=None) -> None:
+    def __init__(self, x: int, y:int, piece=None, rect=None) -> None:
         self.location = Location(x, y)
         self.piece = piece
+        self.rect = rect
+        x, y, w, h = rect 
+        self.inner_rect = pg.Rect(x - CELL_BORDER_WIDTH, y - CELL_BORDER_WIDTH,
+                                      w + 2 * CELL_BORDER_WIDTH, h + 2 * CELL_BORDER_WIDTH)
 
 
     def has_piece(self)-> bool:
@@ -19,3 +28,7 @@ class Cell:
             print(f"{self.piece}", end="")
         else:
             print("- ", end="")
+
+    def focus(self, screen)->_void:
+        pg.draw.rect(screen, (255, 255, 255), self.inner_rect)
+        pg.draw.rect(screen, (0, 0, 0), self.rect)

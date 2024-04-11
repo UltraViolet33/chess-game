@@ -1,5 +1,6 @@
 from .Cell import Cell
-from settings import INITIAL_BOARD
+from settings import *
+import pygame as pg
 
 
 class Board:
@@ -12,7 +13,10 @@ class Board:
         for i in range(8):
             row = []
             for j in range(8):
-                row.append(Cell(i, j, INITIAL_BOARD[i][j]))
+                x_start = 10 + j * CELL_SIZE
+                y_start = 10 + i * CELL_SIZE
+                rect = pg.Rect(x_start, y_start, CELL_SIZE, CELL_SIZE)
+                row.append(Cell(i, j, INITIAL_BOARD[i][j], rect))
             board.append(row)
         return board
 

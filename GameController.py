@@ -63,17 +63,12 @@ class GameController:
             for i in range(8):
                 for j in range(8):
                     cell = self.game.board.board_array[i][j]
-                    x_start = 10 + j * CELL_SIZE
-                    y_start = 10 + i * CELL_SIZE
-
-
-                    area = pg.Rect(x_start, y_start, CELL_SIZE, CELL_SIZE)
-                    color = (255,0,0)
 
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if event.button == 1:
-                            if area.collidepoint(event.pos):
+                            if cell.rect.collidepoint(event.pos):
                                 print('clicked  ' + cell.piece)
+                                cell.focus(self.screen)
 
 
 
