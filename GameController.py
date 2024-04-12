@@ -38,8 +38,13 @@ class GameController:
                             if cell.rect.collidepoint(event.pos):
                                 print('clicked  ' + cell.piece)
                                 self.game.board.reset_cells(self.screen, self.font)
-                                cell.focus(self.screen, self.font)
+                                possible_moves = cell.focus(self.screen, self.font)
+                                if possible_moves:
+                                    possibles_moves_cells = self.game.board.get_cells_from_locations(possible_moves)
+                                    print(possibles_moves_cells)
 
+                                    for cell in possibles_moves_cells:
+                                        cell.focus_possible_move(self.screen)
 
     def run(self):
         self.draw()

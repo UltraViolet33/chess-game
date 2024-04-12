@@ -25,7 +25,7 @@ class Board:
                 elif piece_txt == 'W-P':
                     piece = Pawn('white')
 
-                row.append(Cell(i, j, INITIAL_BOARD[i][j], rect, piece))
+                row.append(Cell(j, i, INITIAL_BOARD[i][j], rect, piece))
             board.append(row)
         return board
 
@@ -39,4 +39,15 @@ class Board:
             for j in range(8):
                 cell = self.board_array[i][j]
                 cell.reset(screen, font)
-    
+
+    def get_cells_from_locations(self, locations):
+        cells = []
+        print(locations)
+        for i in range(8):
+            for j in range(8):
+                cell = self.board_array[i][j]
+                for location in locations:
+                    if cell.location.x == location.x and cell.location.y == location.y:
+                        cells.append(cell)
+
+        return cells

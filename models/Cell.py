@@ -38,8 +38,11 @@ class Cell:
 
         if self.piece_obj:
             print(self.piece_obj.print())
-            self.print_possible_moves()
-        
+            return self.get_possible_moves()
+    
+    def focus_possible_move(self, screen)->_void:
+        pg.draw.rect(screen, (0, 255, 255), self.inner_rect)
+        pg.draw.rect(screen, (0, 0, 0), self.rect)
 
     def draw(self, screen, font)->_void:
         pg.draw.rect(screen, (255, 0, 0), self.inner_rect)
@@ -56,5 +59,5 @@ class Cell:
         screen.blit(text_surface, (self.rect.x ,self.rect.y))
     
 
-    def print_possible_moves(self):
-        possible_moves = self.piece_obj.get_possible_moves(self.location)
+    def get_possible_moves(self):
+        return self.piece_obj.get_possible_moves(self.location)
