@@ -20,5 +20,8 @@ class Pawn(Piece):
         if self.color == self.WHITE:
             possible_moves.append(Location(location.x, location.y - 1))
             possible_moves.append(Location(location.x, location.y - 2))
+        else:
+            possible_moves.append(Location(location.x, location.y + 1))
+            possible_moves.append(Location(location.x, location.y + 2))
 
         return possible_moves
