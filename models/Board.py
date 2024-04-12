@@ -1,6 +1,7 @@
 from .Cell import Cell
 from settings import *
 import pygame as pg
+from .Piece import Piece, Pawn
 
 
 class Board:
@@ -16,7 +17,15 @@ class Board:
                 x_start = 10 + j * CELL_SIZE
                 y_start = 10 + i * CELL_SIZE
                 rect = pg.Rect(x_start, y_start, CELL_SIZE, CELL_SIZE)
-                row.append(Cell(i, j, INITIAL_BOARD[i][j], rect))
+
+                piece_txt = INITIAL_BOARD[i][j]
+                piece = None
+                if piece_txt == 'B-P':
+                    piece = Pawn('black')
+                elif piece_txt == 'W-P':
+                    piece = Pawn('white')
+
+                row.append(Cell(i, j, INITIAL_BOARD[i][j], rect, piece))
             board.append(row)
         return board
 
