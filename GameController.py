@@ -3,6 +3,9 @@ import sys
 from settings import *
 from models.Game import Game
 
+BLACK ='black'
+WHITE = 'white'
+
 class GameController:
     def __init__(self, game:Game):
         self.game = game
@@ -13,6 +16,13 @@ class GameController:
         self.font = pg.font.SysFont('Comic Sans MS', 30)
         self.next_is_move = False
         self.active_cell = None
+        self.player_turn = WHITE
+        self.possible_moves = []
+
+    def get_next_player_turn(self):
+        if self.player_turn == WHITE:
+            return BLACK
+        return WHITE
 
     def update(self):
         pg.display.flip()
@@ -37,31 +47,82 @@ class GameController:
                     if event.type == pg.MOUSEBUTTONDOWN:
                         if event.button == 1:
                             if cell.rect.collidepoint(event.pos):
-                                print('clicked  ' + cell.piece)
-                                print(self.next_is_move)
-                                # first click to select the piece
-                                if not self.next_is_move:
-                                    self.game.board.reset_cells(self.screen, self.font)
-                                    possible_moves = cell.focus(self.screen, self.font)
-                                    self.active_cell = cell 
-                                    if possible_moves:
-                                        self.next_is_move = True
-                                        possibles_moves_cells = self.game.board.get_cells_from_locations(possible_moves)
-                                        print(possibles_moves_cells)
+                                         # first click to select the piece
+                                
+                                # if not self.next_is_move:
+                                #     if cell.piece_obj.color == self.player_turn:
+                                #         self.game.board.reset_cells(self.screen, self.font)
+                                #         possible_moves = cell.focus(self.screen, self.font)
+                                #         self.active_cell = cell 
+                                #         if possible_moves:
+                                #             self.next_is_move = True
+                                #             possibles_moves_cells = self.game.board.get_cells_from_locations(possible_moves)
+                                #             print(possibles_moves_cells)
 
-                                        for cell in possibles_moves_cells:
-                                            cell.focus_possible_move(self.screen)
-                                #second click to move the piece
-                                else:
-                                    print('move piece')
+                                #             for cell in possibles_moves_cells:
+                                #                 cell.focus_possible_move(self.screen)
+                                # #second click to move the piece
+                                # else:
+                                #     print('move piece')
+                                #     cell.piece = self.active_cell.piece
+                                #     self.active_cell.piece = None
+                                #     self.game.board.reset_cells(self.screen, self.font)
+                                #     self.next_is_move = False
+                                #     self.active_cell = None
+
+                            # if not self.next_is_move:
+                            #     if cell.piece_obj.color == self.player_turn:
+                            #         self.game.board.reset_cells(self.screen, self.font)
+                            #         possible_moves = cell.focus(self.screen, self.font)
+                            #         self.active_cell = cell 
+                            #         if possible_moves:
+                            #             self.next_is_move = True
+                            #             possibles_moves_cells = self.game.board.get_cells_from_locations(possible_moves)
+                            #             print(possibles_moves_cells)
+
+                            #             for cell in possibles_moves_cells:
+                            #                 cell.focus_possible_move(self.screen)
+                            # #second click to move the piece
+                            # else:
+                            #     print('move piece')
+                            #     cell.piece = self.active_cell.piece
+                            #     self.active_cell.piece = None
+                            #     self.game.board.reset_cells(self.screen, self.font)
+                            #     self.next_is_move = False
+                            #     self.active_cell = None
+                             
+                     
+                                self.game.board.reset_cells(self.screen, self.font)
+                                if self.active_cell and self.possible_moves  and cell.is_in_locations(self.possible_moves):
+                                    print('move')
                                     cell.piece = self.active_cell.piece
                                     self.active_cell.piece = None
+                                    # self.active_cell.draw(self.screen, self.font)
+                                    # cell.draw(self.screen, self.font)
+
+                                    
                                     self.game.board.reset_cells(self.screen, self.font)
-                                    self.next_is_move = False
+                                    # self.update()
+                                    # self.draw()
                                     self.active_cell = None
-
-
-
+                                    self.possible_moves = None
+                                    self.player_turn = self.get_next_player_turn()
+                                elif cell.is_empty():
+                                    pass 
+                                elif cell.piece_obj.color != self.player_turn:
+                                   pass
+                                else:
+                                    print('ok!')
+                                    self.game.board.reset_cells(self.screen, self.font)
+                                    possible_moves = cell.focus(self.screen, self.font)
+                                    if possible_moves:
+                                        possibles_moves_cells = self.game.board.get_cells_from_locations(possible_moves)
+                                        self.active_cell = cell
+                                        self.possible_moves = possible_moves
+                                        for cell in possibles_moves_cells:
+                                            cell.focus_possible_move(self.screen)
+                                    else:
+                                        pass                 
     def run(self):
         self.draw()
         while True:

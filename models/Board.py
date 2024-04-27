@@ -1,7 +1,7 @@
 from .Cell import Cell
 from settings import *
 import pygame as pg
-from .Piece import Piece, Pawn
+from .Piece import Piece, Pawn, Rook
 
 
 class Board:
@@ -24,6 +24,10 @@ class Board:
                     piece = Pawn('black')
                 elif piece_txt == 'W-P':
                     piece = Pawn('white')
+                elif piece_txt == 'W-R':
+                    piece = Rook('white')
+                elif piece_txt == 'B-R':
+                    piece = Rook('black')
 
                 row.append(Cell(j, i, INITIAL_BOARD[i][j], rect, piece))
             board.append(row)

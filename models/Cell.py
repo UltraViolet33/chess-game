@@ -23,6 +23,9 @@ class Cell:
 
     def has_piece(self)-> bool:
         return self.piece
+    
+    def is_empty(self)->bool:
+        return not self.piece
 
     def print_location(self):
         if self.has_piece():
@@ -57,6 +60,14 @@ class Cell:
     def draw_piece(self, screen, font)->_void:
         text_surface = font.render(self.piece, False, (255, 0, 0))
         screen.blit(text_surface, (self.rect.x ,self.rect.y))
+
+    def is_in_locations(self, locations):
+        for location in locations:
+            print(location.x)
+            if self.location.x == location.x and self.location.y == location.y:
+                return True
+            
+        return False
     
 
     def get_possible_moves(self):
