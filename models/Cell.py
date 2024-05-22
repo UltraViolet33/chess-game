@@ -33,7 +33,7 @@ class Cell:
         else:
             print("- ", end="")
 
-    def focus(self, screen,font)->_void:
+    def focus(self, screen,font, board)->_void:
         pg.draw.rect(screen, (255, 255, 255), self.inner_rect)
         pg.draw.rect(screen, (0, 0, 0), self.rect)
         self.draw_piece(screen, font)
@@ -41,7 +41,7 @@ class Cell:
 
         if self.piece_obj:
             print(self.piece_obj.print())
-            return self.get_possible_moves()
+            return self.get_possible_moves(board)
     
     def focus_possible_move(self, screen)->_void:
         pg.draw.rect(screen, (0, 255, 255), self.inner_rect)
@@ -70,5 +70,5 @@ class Cell:
         return False
     
 
-    def get_possible_moves(self):
-        return self.piece_obj.get_possible_moves(self.location)
+    def get_possible_moves(self, board):
+        return self.piece_obj.get_possible_moves(self.location, board)

@@ -94,13 +94,13 @@ class GameController:
                      
                                 self.game.board.reset_cells(self.screen, self.font)
                                 if self.active_cell and self.possible_moves  and cell.is_in_locations(self.possible_moves):
+                                    #move the piece
                                     print('move')
                                     cell.piece = self.active_cell.piece
+                                    cell.piece_obj = self.active_cell.piece_obj
                                     self.active_cell.piece = None
                                     # self.active_cell.draw(self.screen, self.font)
                                     # cell.draw(self.screen, self.font)
-
-                                    
                                     self.game.board.reset_cells(self.screen, self.font)
                                     # self.update()
                                     # self.draw()
@@ -108,13 +108,15 @@ class GameController:
                                     self.possible_moves = None
                                     self.player_turn = self.get_next_player_turn()
                                 elif cell.is_empty():
+                                    #click on an empty cell
                                     pass 
                                 elif cell.piece_obj.color != self.player_turn:
                                    pass
                                 else:
-                                    print('ok!')
+                                # display possible moves
+                                    print("select cell")
                                     self.game.board.reset_cells(self.screen, self.font)
-                                    possible_moves = cell.focus(self.screen, self.font)
+                                    possible_moves = cell.focus(self.screen, self.font, self.game.board)
                                     if possible_moves:
                                         possibles_moves_cells = self.game.board.get_cells_from_locations(possible_moves)
                                         self.active_cell = cell

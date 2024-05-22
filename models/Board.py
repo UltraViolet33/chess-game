@@ -34,7 +34,7 @@ class Board:
         return board
 
     @property
-    def board_array(self)-> list:
+    def board_array(self)-> list:   
         return self._board_array
 
 
