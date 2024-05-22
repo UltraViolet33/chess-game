@@ -77,3 +77,25 @@ class Rook(Piece):
             next_x += 1
 
         return possible_moves
+
+
+
+class Bishop(Piece):
+    def get_possible_moves(self, location, board):
+        possible_moves = []
+
+        # upper-right
+        next_y = location.y - 1
+        next_x = location.x + 1
+        while next_x < 8 and next_y > 0:
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+            else:
+                break
+            
+            next_y -= 1
+            next_x += 1
+
+
+        return possible_moves
