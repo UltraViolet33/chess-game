@@ -2,6 +2,7 @@ from .Cell import Cell
 from settings import *
 import pygame as pg
 from .Piece import Piece, Pawn, Rook
+from .PieceFactory import PieceFactory
 
 
 class Board:
@@ -20,15 +21,7 @@ class Board:
 
                 piece_txt = INITIAL_BOARD[i][j]
                 piece = None
-                if piece_txt == 'B-P':
-                    piece = Pawn('black')
-                elif piece_txt == 'W-P':
-                    piece = Pawn('white')
-                elif piece_txt == 'W-R':
-                    piece = Rook('white')
-                elif piece_txt == 'B-R':
-                    piece = Rook('black')
-
+                piece = PieceFactory.create_piece_object(piece_txt)
                 row.append(Cell(j, i, INITIAL_BOARD[i][j], rect, piece))
             board.append(row)
         return board
