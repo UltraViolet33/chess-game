@@ -137,3 +137,41 @@ class Bishop(Piece):
             next_x -= 1
 
         return possible_moves
+
+
+
+class Knight(Piece):
+    def get_possible_moves(self, location: Location, board: Board) -> List[Location]:
+        possible_moves = []
+
+        # Left up up
+        if location.x > 0 and location.y > 1:
+            next_x = location.x - 1
+            next_y = location.y - 2
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+
+        # right up up
+        if location.x < 7 and location.y > 1:
+            next_x = location.x + 1
+            next_y = location.y - 2
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+
+        # Left down down
+        if location.x > 0 and location.y < 6:
+            next_x = location.x - 1
+            next_y = location.y + 2
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+
+        # Right down down
+
+        return possible_moves
+
+
+
+
