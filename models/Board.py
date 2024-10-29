@@ -7,8 +7,7 @@ from .PieceFactory import PieceFactory
 
 class Board:
     def __init__(self) -> None:
-        self._board_array = self.init_board() 
-
+        self._board_array = self.init_board()
 
     def init_board(self):
         board = []
@@ -27,9 +26,8 @@ class Board:
         return board
 
     @property
-    def board_array(self)-> list:   
+    def board_array(self) -> list:
         return self._board_array
-
 
     def reset_cells(self, screen, font):
         for i in range(8):
@@ -38,6 +36,8 @@ class Board:
                 cell.reset(screen, font)
 
     def get_cells_from_locations(self, locations):
+        """return Cells[] from locations[]
+        """
         cells = []
         print(locations)
         for i in range(8):

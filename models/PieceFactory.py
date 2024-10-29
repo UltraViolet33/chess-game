@@ -9,7 +9,6 @@ class PieceFactory():
         if text_desc == '':
             return None
         text_split = text_desc.split('-')
-        print(text_split)
         color = color_dict[text_split[0]]
         piece = pieces_dict[text_split[1]]
         

@@ -2,7 +2,6 @@ from . import Board
 
 
 class Game:
-
     def __init__(self, board: Board) -> None:
         self.board = board
 

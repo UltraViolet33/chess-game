@@ -113,8 +113,7 @@ class GameController:
                                 elif cell.piece_obj.color != self.player_turn:
                                    pass
                                 else:
-                                # display possible moves
-                                    print("select cell")
+                                    # display possible moves
                                     self.game.board.reset_cells(self.screen, self.font)
                                     possible_moves = cell.focus(self.screen, self.font, self.game.board)
                                     if possible_moves:
@@ -124,7 +123,7 @@ class GameController:
                                         for cell in possibles_moves_cells:
                                             cell.focus_possible_move(self.screen)
                                     else:
-                                        pass                 
+                                        pass     
     def run(self):
         self.draw()
         while True:

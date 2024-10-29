@@ -38,9 +38,7 @@ class Cell:
         pg.draw.rect(screen, (0, 0, 0), self.rect)
         self.draw_piece(screen, font)
 
-
         if self.piece_obj:
-            print(self.piece_obj.print())
             return self.get_possible_moves(board)
     
     def focus_possible_move(self, screen)->_void:

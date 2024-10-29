@@ -1,18 +1,19 @@
 from models.Cell import Location
+from typing import List
+from . import Board
 
 
 class Piece:
     def print(self):
         return f"pawn-{self.color}"
-    
+
     def __init__(self, color) -> None:
         self.color = color
-        self.BLACK ='black'
-        self.WHITE = 'white'
-
+        self.BLACK = "black"
+        self.WHITE = "white"
 
     def get_possible_moves(self, location, board):
-        pass 
+        pass
 
 
 class Pawn(Piece):
@@ -28,8 +29,8 @@ class Pawn(Piece):
             possible_moves.append(Location(location.x, location.y + 2))
 
         return possible_moves
-    
-    
+
+
 class Rook(Piece):
     def get_possible_moves(self, location, board):
         possible_moves = []
@@ -55,7 +56,7 @@ class Rook(Piece):
                 break
             next_y += 1
 
-        #horizontal move
+        # horizontal move
         next_x = location.x - 1
         while next_x > 0:
             cell = board.board_array[location.y][next_x]
@@ -79,12 +80,11 @@ class Rook(Piece):
         return possible_moves
 
 
-
 class Bishop(Piece):
-    def get_possible_moves(self, location, board):
+    def get_possible_moves(self, location: Location, board: Board) -> List[Location]:
         possible_moves = []
 
-        # upper-right
+        # Upper right
         next_y = location.y - 1
         next_x = location.x + 1
         while next_x < 8 and next_y > 0:
@@ -93,9 +93,47 @@ class Bishop(Piece):
                 possible_moves.append(Location(next_x, next_y))
             else:
                 break
-            
+
             next_y -= 1
             next_x += 1
 
+        # Upper left
+        next_y = location.y - 1
+        next_x = location.x - 1
+        while next_x >= 0 and next_y > 0:
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+            else:
+                break
+
+            next_y -= 1
+            next_x -= 1
+
+        # Down right
+        next_y = location.y + 1
+        next_x = location.x + 1
+        while next_x < 8 and next_y < 8:
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+            else:
+                break
+
+            next_y += 1
+            next_x += 1
+
+        # Down left
+        next_y = location.y + 1
+        next_x = location.x - 1
+        while next_x >= 0 and next_y < 8:
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+            else:
+                break
+
+            next_y += 1
+            next_x -= 1
 
         return possible_moves
