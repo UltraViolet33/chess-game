@@ -18,7 +18,7 @@ class GameController:
         self.active_cell = None
         self.player_turn = WHITE
         self.possible_moves = []
-        self.possibles_eats = []
+        self.possible_eats = []
 
     def get_next_player_turn(self):
         if self.player_turn == WHITE:
