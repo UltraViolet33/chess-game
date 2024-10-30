@@ -30,19 +30,28 @@ class Pawn(Piece):
 
 
 class Rook(Piece):
-    def get_possible_moves(self, location, board):
-        return self.static_get_possible_moves(location, board)
-    
+    def get_possible_moves(
+        self, location: Location, board: Board, color: str
+    ) -> List[List[Location]]:
+        return self.static_get_possible_moves(location, board, color)
+
     @staticmethod
-    def static_get_possible_moves(location: Location, board: Board) -> List[Location]:
+    def static_get_possible_moves(
+        location: Location, board: Board, color: str
+    ) -> List[List[Location]]:
+
         possible_moves = []
-        
+        possible_eats = []
+
         # vertical
         next_y = location.y - 1
         while next_y >= 0:
             cell = board.board_array[next_y][location.x]
             if cell.is_empty():
                 possible_moves.append(Location(location.x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x, next_y))
+                break
             else:
                 break
             next_y -= 1
@@ -52,6 +61,9 @@ class Rook(Piece):
             cell = board.board_array[next_y][location.x]
             if cell.is_empty():
                 possible_moves.append(Location(location.x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x, next_y))
+                break
             else:
                 break
             next_y += 1
@@ -62,6 +74,9 @@ class Rook(Piece):
             cell = board.board_array[location.y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, location.y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, location.y))
+                break
             else:
                 break
             next_x -= 1
@@ -71,20 +86,28 @@ class Rook(Piece):
             cell = board.board_array[location.y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, location.y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, location.y))
+                break
             else:
                 break
             next_x += 1
 
-        return possible_moves
+        return [possible_moves, possible_eats]
 
 
 class Bishop(Piece):
-    def get_possible_moves(self, location: Location, board: Board) -> List[Location]:
-        return self.static_get_possible_moves(location, board)
+    def get_possible_moves(
+        self, location: Location, board: Board, color: str
+    ) -> List[List[Location]]:
+        return self.static_get_possible_moves(location, board, color)
 
     @staticmethod
-    def static_get_possible_moves(location: Location, board: Board) -> List[Location]:
+    def static_get_possible_moves(
+        location: Location, board: Board, color: str
+    ) -> List[List[Location]]:
         possible_moves = []
+        possible_eats = []
 
         # Upper right
         next_y = location.y - 1
@@ -93,6 +116,9 @@ class Bishop(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
+                break
             else:
                 break
 
@@ -106,6 +132,9 @@ class Bishop(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
+                break
             else:
                 break
 
@@ -119,6 +148,9 @@ class Bishop(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
+                break
             else:
                 break
 
@@ -132,18 +164,24 @@ class Bishop(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
+                break
             else:
                 break
 
             next_y += 1
             next_x -= 1
 
-        return possible_moves
+        return [possible_moves, possible_eats]
 
 
 class Knight(Piece):
-    def get_possible_moves(self, location: Location, board: Board) -> List[Location]:
+    def get_possible_moves(
+        self, location: Location, board: Board, color: str
+    ) -> List[List[Location]]:
         possible_moves = []
+        possible_eats = []
 
         # Left up up
         if location.x > 0 and location.y > 1:
@@ -160,6 +198,8 @@ class Knight(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
 
         # Left down down
         if location.x > 0 and location.y < 6:
@@ -168,6 +208,8 @@ class Knight(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
 
         # Right down down
         if location.x < 7 and location.y < 6:
@@ -176,6 +218,8 @@ class Knight(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
 
         # Up left left
         if location.x > 1 and location.y > 0:
@@ -184,6 +228,8 @@ class Knight(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
 
         # Up right right
         if location.x < 6 and location.y > 0:
@@ -192,7 +238,9 @@ class Knight(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
-        
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
+
         # Down left left
         if location.x > 1 and location.y < 7:
             next_x = location.x - 2
@@ -200,7 +248,9 @@ class Knight(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
-        
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
+
         # Down right right
         if location.x < 6 and location.y < 7:
             next_x = location.x + 2
@@ -208,73 +258,106 @@ class Knight(Piece):
             cell = board.board_array[next_y][next_x]
             if cell.is_empty():
                 possible_moves.append(Location(next_x, next_y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(next_x, next_y))
 
-        return possible_moves
+        return [possible_moves, possible_eats]
 
 
 class Queen(Piece):
-    def get_possible_moves(self, location: Location, board: Board) -> List[Location]:
+    def get_possible_moves(
+        self, location: Location, board: Board, color: str
+    ) -> List[List[Location]]:
+
         possible_moves = []
+        possible_eats = []
 
         # Rook moves
-        possible_moves.extend(Rook.static_get_possible_moves(location, board))
+        [rook_moves, rook_eats] = Rook.static_get_possible_moves(location, board, color)
 
         # Bishop moves
-        possible_moves.extend(Bishop.static_get_possible_moves(location, board))
-    
-        return possible_moves
+        [bishop_moves, bishop_eats] = Bishop.static_get_possible_moves(
+            location, board, color
+        )
+
+        possible_moves.extend(rook_moves)
+        possible_moves.extend(bishop_moves)
+        possible_eats.extend(rook_eats)
+        possible_eats.extend(bishop_eats)
+
+        return [possible_moves, possible_eats]
 
 
 class King(Piece):
-    def  get_possible_moves(self, location: Location, board: Board) -> List[Location]:
+    def get_possible_moves(
+        self, location: Location, board: Board, color: str
+    ) -> List[List[Location]]:
+
         possible_moves = []
+        possible_eats = []
 
         # Up
         if location.y > 0:
             cell = board.board_array[location.y - 1][location.x]
             if cell.is_empty():
                 possible_moves.append(Location(location.x, location.y - 1))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x, location.y - 1))
 
         # Down
         if location.y < 7:
             cell = board.board_array[location.y + 1][location.x]
             if cell.is_empty():
                 possible_moves.append(Location(location.x, location.y + 1))
-        
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x, location.y + 1))
+
         # Left
         if location.x > 0:
             cell = board.board_array[location.y][location.x - 1]
             if cell.is_empty():
                 possible_moves.append(Location(location.x - 1, location.y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x - 1, location.y))
 
         # Right
         if location.x < 7:
             cell = board.board_array[location.y][location.x + 1]
             if cell.is_empty():
                 possible_moves.append(Location(location.x + 1, location.y))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x + 1, location.y))
 
         # Upper right
         if location.x < 7 and location.y > 0:
             cell = board.board_array[location.y - 1][location.x + 1]
             if cell.is_empty():
                 possible_moves.append(Location(location.x + 1, location.y - 1))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x + 1, location.y - 1))
 
         # Upper left
         if location.x > 0 and location.y > 0:
             cell = board.board_array[location.y - 1][location.x - 1]
             if cell.is_empty():
                 possible_moves.append(Location(location.x - 1, location.y - 1))
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x - 1, location.y - 1))
 
         # Down right
         if location.x < 7 and location.y < 7:
             cell = board.board_array[location.y + 1][location.x + 1]
             if cell.is_empty():
                 possible_moves.append(Location(location.x + 1, location.y + 1))
-        
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x + 1, location.y + 1))
+
         # Down left
         if location.x > 0 and location.y < 7:
             cell = board.board_array[location.y + 1][location.x - 1]
             if cell.is_empty():
                 possible_moves.append(Location(location.x - 1, location.y + 1))
-        
-        return possible_moves
+            elif cell.piece_obj.color != color:
+                possible_eats.append(Location(location.x - 1, location.y + 1))
+
+        return [possible_moves, possible_eats]

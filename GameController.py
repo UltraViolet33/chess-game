@@ -18,6 +18,7 @@ class GameController:
         self.active_cell = None
         self.player_turn = WHITE
         self.possible_moves = []
+        self.possibles_eats = []
 
     def get_next_player_turn(self):
         if self.player_turn == WHITE:
@@ -93,7 +94,7 @@ class GameController:
                              
                      
                                 self.game.board.reset_cells(self.screen, self.font)
-                                if self.active_cell and self.possible_moves  and cell.is_in_locations(self.possible_moves):
+                                if self.active_cell and self.possible_moves  and (cell.is_in_locations(self.possible_moves) or cell.is_in_locations(self.possible_eats)):
                                     #move the piece
                                     print('move')
                                     cell.piece = self.active_cell.piece
@@ -115,13 +116,19 @@ class GameController:
                                 else:
                                     # display possible moves
                                     self.game.board.reset_cells(self.screen, self.font)
-                                    possible_moves = cell.focus(self.screen, self.font, self.game.board)
+                                    [possible_moves, possible_eats] = cell.focus(self.screen, self.font, self.game.board)
                                     if possible_moves:
                                         possibles_moves_cells = self.game.board.get_cells_from_locations(possible_moves)
                                         self.active_cell = cell
                                         self.possible_moves = possible_moves
                                         for cell in possibles_moves_cells:
                                             cell.focus_possible_move(self.screen)
+                                    if possible_eats:
+                                        possibles_eats_cells = self.game.board.get_cells_from_locations(possible_eats)
+                                        # self.active_cell = cell
+                                        self.possible_eats = possible_eats
+                                        for cell in possibles_eats_cells:
+                                            cell.focus_possible_eats(self.screen, self.font)
                                     else:
                                         pass     
     def run(self):
