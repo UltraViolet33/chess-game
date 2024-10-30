@@ -169,6 +169,44 @@ class Knight(Piece):
                 possible_moves.append(Location(next_x, next_y))
 
         # Right down down
+        if location.x < 7 and location.y < 6:
+            next_x = location.x + 1
+            next_y = location.y + 2
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+
+        # Up left left
+        if location.x > 1 and location.y > 0:
+            next_x = location.x - 2
+            next_y = location.y - 1
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+
+        # Up right right
+        if location.x < 6 and location.y > 0:
+            next_x = location.x + 2
+            next_y = location.y - 1
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+        
+        # Down left left
+        if location.x > 1 and location.y < 7:
+            next_x = location.x - 2
+            next_y = location.y + 1
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
+        
+        # Down right right
+        if location.x < 6 and location.y < 7:
+            next_x = location.x + 2
+            next_y = location.y + 1
+            cell = board.board_array[next_y][next_x]
+            if cell.is_empty():
+                possible_moves.append(Location(next_x, next_y))
 
         return possible_moves
 
