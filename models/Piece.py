@@ -225,3 +225,56 @@ class Queen(Piece):
         return possible_moves
 
 
+class King(Piece):
+    def  get_possible_moves(self, location: Location, board: Board) -> List[Location]:
+        possible_moves = []
+
+        # Up
+        if location.y > 0:
+            cell = board.board_array[location.y - 1][location.x]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x, location.y - 1))
+
+        # Down
+        if location.y < 7:
+            cell = board.board_array[location.y + 1][location.x]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x, location.y + 1))
+        
+        # Left
+        if location.x > 0:
+            cell = board.board_array[location.y][location.x - 1]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x - 1, location.y))
+
+        # Right
+        if location.x < 7:
+            cell = board.board_array[location.y][location.x + 1]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x + 1, location.y))
+
+        # Upper right
+        if location.x < 7 and location.y > 0:
+            cell = board.board_array[location.y - 1][location.x + 1]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x + 1, location.y - 1))
+
+        # Upper left
+        if location.x > 0 and location.y > 0:
+            cell = board.board_array[location.y - 1][location.x - 1]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x - 1, location.y - 1))
+
+        # Down right
+        if location.x < 7 and location.y < 7:
+            cell = board.board_array[location.y + 1][location.x + 1]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x + 1, location.y + 1))
+        
+        # Down left
+        if location.x > 0 and location.y < 7:
+            cell = board.board_array[location.y + 1][location.x - 1]
+            if cell.is_empty():
+                possible_moves.append(Location(location.x - 1, location.y + 1))
+        
+        return possible_moves
