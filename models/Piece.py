@@ -18,8 +18,6 @@ class Piece:
 
 class Pawn(Piece):
     def get_possible_moves(self, location, board):
-        print(location.x)
-        print(location.y)
         possible_moves = []
         if self.color == self.WHITE:
             possible_moves.append(Location(location.x, location.y - 1))
@@ -33,13 +31,16 @@ class Pawn(Piece):
 
 class Rook(Piece):
     def get_possible_moves(self, location, board):
+        return self.static_get_possible_moves(location, board)
+    
+    @staticmethod
+    def static_get_possible_moves(location: Location, board: Board) -> List[Location]:
         possible_moves = []
+        
         # vertical
-        print(location.y)
         next_y = location.y - 1
-        while next_y > 0:
+        while next_y >= 0:
             cell = board.board_array[next_y][location.x]
-            print(cell.print_location())
             if cell.is_empty():
                 possible_moves.append(Location(location.x, next_y))
             else:
@@ -49,7 +50,6 @@ class Rook(Piece):
         next_y = location.y + 1
         while next_y < 8:
             cell = board.board_array[next_y][location.x]
-            print(cell.print_location())
             if cell.is_empty():
                 possible_moves.append(Location(location.x, next_y))
             else:
@@ -58,9 +58,8 @@ class Rook(Piece):
 
         # horizontal move
         next_x = location.x - 1
-        while next_x > 0:
+        while next_x >= 0:
             cell = board.board_array[location.y][next_x]
-            print(cell.print_location())
             if cell.is_empty():
                 possible_moves.append(Location(next_x, location.y))
             else:
@@ -70,7 +69,6 @@ class Rook(Piece):
         next_x = location.x + 1
         while next_x < 8:
             cell = board.board_array[location.y][next_x]
-            print(cell.print_location())
             if cell.is_empty():
                 possible_moves.append(Location(next_x, location.y))
             else:
@@ -82,6 +80,10 @@ class Rook(Piece):
 
 class Bishop(Piece):
     def get_possible_moves(self, location: Location, board: Board) -> List[Location]:
+        return self.static_get_possible_moves(location, board)
+
+    @staticmethod
+    def static_get_possible_moves(location: Location, board: Board) -> List[Location]:
         possible_moves = []
 
         # Upper right
@@ -137,7 +139,6 @@ class Bishop(Piece):
             next_x -= 1
 
         return possible_moves
-
 
 
 class Knight(Piece):
@@ -211,5 +212,16 @@ class Knight(Piece):
         return possible_moves
 
 
+class Queen(Piece):
+    def get_possible_moves(self, location: Location, board: Board) -> List[Location]:
+        possible_moves = []
+
+        # Rook moves
+        possible_moves.extend(Rook.static_get_possible_moves(location, board))
+
+        # Bishop moves
+        possible_moves.extend(Bishop.static_get_possible_moves(location, board))
+    
+        return possible_moves
 
 

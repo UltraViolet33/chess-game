@@ -1,11 +1,11 @@
-from .Piece import Piece, Pawn, Rook, Bishop, Knight
+from .Piece import Piece, Pawn, Rook, Bishop, Knight, Queen
 
 class PieceFactory():
    
    @staticmethod
    def create_piece_object(text_desc):
         color_dict = {'B': 'black', 'W':'white'}
-        pieces_dict = {'P': Pawn, 'R': Rook, 'K': Knight, 'B': Bishop, 'Q': Rook}
+        pieces_dict = {'P': Pawn, 'R': Rook, 'K': Knight, 'B': Bishop, 'Q': Queen}
         if text_desc == '':
             return None
         text_split = text_desc.split('-')
